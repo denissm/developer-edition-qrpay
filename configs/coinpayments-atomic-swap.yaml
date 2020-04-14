@@ -31,4 +31,4 @@ coinpayments:
 atomic_swap:
   forbill_endpoint: http://janus
   signer: SAMJKTZVW5UOHCDK5INYJNORF2HRKYI72M5XSZCBYAHQHR34FFR4Z6G4
-  price_asset: UAH
+  price_asset: QRP

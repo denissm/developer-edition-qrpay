@@ -68,7 +68,7 @@ services:
       - "autoheal=true"
       - "traefik.enabled=false"
   horizon:
-    image: tokend/horizon:3.7.2-rc.0
+    image: tokend/horizon:3.8.4
     depends_on:
       - core
     restart: unless-stopped
@@ -123,9 +123,27 @@ services:
     volumes:
       - ./configs/conto.js:/usr/share/nginx/html/static/env.js
     ports:
-      - 8060:80
+      - 8061:80
   admin_client:
     image: tokendconto/admin-panel:1.1.0-rc.0
+    labels:
+      - "traefik.enabled=false"
+    restart: unless-stopped
+    volumes:
+      - ./configs/client.js:/usr/share/nginx/html/static/env.js
+    ports:
+      - 8071:80
+  qrp_client:
+    image: qr-pay-web-client:0.1.2
+    labels:
+      - "traefik.enabled=false"
+    restart: unless-stopped
+    volumes:
+      - ./configs/conto.js:/usr/share/nginx/html/static/env.js
+    ports:
+      - 8060:80
+  qrp_admin_client:
+    image: qr-pay-admin-panel:0.1
     labels:
       - "traefik.enabled=false"
     restart: unless-stopped
@@ -325,7 +343,17 @@ services:
     command:
       - 'run'
       - 'service'
-
+  # Additional
+  pga:
+    container_name: df_pga
+    image: dpage/pgadmin4
+    volumes:
+      - pga:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ru5t.new@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=ru5t_123
+    ports:
+      - "5050:80/tcp"
 volumes:
   adks-data:
   api-data:
@@ -337,3 +365,4 @@ volumes:
   proxy-payments-data:
   marketplace-data:
   sponsorship-data:
+  pga:

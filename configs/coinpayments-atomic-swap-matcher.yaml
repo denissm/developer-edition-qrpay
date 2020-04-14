@@ -21,5 +21,5 @@ coinpayments:
 
 atomic_swap_matcher:
   excluded_assets:
-    - UAH
+    - QRP
   signer: SAMJKTZVW5UOHCDK5INYJNORF2HRKYI72M5XSZCBYAHQHR34FFR4Z6G4
